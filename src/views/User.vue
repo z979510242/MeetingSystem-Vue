@@ -249,8 +249,10 @@ export default {
   components: {
     VueCropper,
   },
-  setup() {
-
+  props: ["date", "time"],
+  setup(props) {
+    console.log(props.date)
+    console.log(props.time)
     const form = ref([]);
     const isDefault = ref(localStorage.getItem("default"));
     // console.log(localStorage.getItem("token"));

@@ -162,7 +162,7 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, onActivated } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { fetchData } from "../api/index";
 import axios from "axios";
@@ -170,11 +170,18 @@ import {useStore} from "vuex";
 
 export default {
     name: "basetable",
-    setup() {
-        const query = ref({});
-        const query2 = ref({});
-        const tableData = ref([]);
-        const pageTotal = ref(0);
+    props: ["date", "time"],
+    setup(props) {
+      console.log(props.date)
+      console.log(props.time)
+
+      const query = ref({});
+      const query2 = ref({});
+      query2.value.time = props.time;
+      query2.value.date = props.date;
+
+      const tableData = ref([]);
+      const pageTotal = ref(0);
       const rooms = ref([]);
       const getRooms = () => {
         return axios.get("/room/").then(res => {
@@ -205,7 +212,21 @@ export default {
         console.log(rooms.value)
         roomResult.value = rooms.value.filter(room => room.type === query.type)
       }
+      onActivated(() => {
+        console.log("activated")
+        if (props){
+          query2.value.time = props.time;
+          query2.value.date = props.date;
+          handleSearch();
+
+        }
+      })
       onMounted(async ()=>{
+        // if (props){
+        //   query2.value.time = props.time;
+        //   query2.value.date = props.date;
+        // }
+
         await getRooms();
         createTypes();
       })

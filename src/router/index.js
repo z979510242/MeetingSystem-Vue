@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import axios from "axios";
 import store from '../store'
 import {useStore} from "vuex";
+import tr from "element-plus/packages/locale/lang/tr";
 
 const routes = [
     {
@@ -26,6 +27,7 @@ const routes = [
                 meta: {
                     title: '教室预约'
                 },
+                props: true,
                 component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
             },{
                 path: "/rooms",
@@ -127,6 +129,7 @@ const routes = [
                 meta: {
                     title: '个人中心'
                 },
+                props: true,
                 component: () => import (/* webpackChunkName: "user" */ '../views/User.vue')
             }
         ]
