@@ -82,7 +82,6 @@
 <script>
 import { ref, reactive, onMounted, computed } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { fetchData } from "../api/index";
 import axios from "axios";
 import {useStore} from "vuex";
 
