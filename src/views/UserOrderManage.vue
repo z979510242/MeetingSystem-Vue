@@ -198,7 +198,7 @@ export default {
     const logMap = ref({});
     const createTypes = async () => {
       const users = await getAllUsers();
-      console.log(users)
+
       users.forEach(user => {
         userMap2.value[user.id] = user;
       })
@@ -287,14 +287,13 @@ export default {
 
     const handleEdit = async (index, row) => {
       form.value = {...row};
-      // form.value.userId = "";
-      console.log(userType.value)
+
       editVisible.value = true;
     };
 
 
     const changeReserve = (form) => {
-      console.log(form)
+
       if (form.newUserId && parseInt(form.newUserId) !== form.userId){
         return axios.post("/log/updateUser/", {
 
@@ -304,7 +303,7 @@ export default {
           log: form.log
 
         }).then(async res => {
-          console.log(res.data)
+
           ElMessage.success("更换预约人员成功！");
           await getLogs();
           editVisible.value =false;

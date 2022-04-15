@@ -58,11 +58,11 @@ export default {
         const insertMessage = () => {
           const time = new Date().getTime();
           form.date = new Date(time);
-          // console.log(store.state.user.id);
+
           form.userId = store.state.user.id;
-          // console.log(new Date().getTime());
+
           return axios.post("/message/insert/", form).then(res => {
-            console.log(res.data)
+
             ElMessage.success("添加成功！");
             onReset();
           }).catch(e => {

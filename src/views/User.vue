@@ -251,14 +251,13 @@ export default {
   },
   props: ["date", "time"],
   setup(props) {
-    console.log(props.date)
-    console.log(props.time)
+
     const form = ref([]);
     const isDefault = ref(localStorage.getItem("default"));
-    // console.log(localStorage.getItem("token"));
+
     const getUserData = async () => {
       await axios.get("/user/me").then(res => {
-        // console.log(res.data);
+
         form.value = res.data
         form.default = isDefault;
 
@@ -287,7 +286,7 @@ export default {
     const regex = "\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}";
     const updateData = async () => {
       await axios.patch("/user/", form.value).then(res => {
-        // console.log(res.data)
+
         ElMessage.success("修改成功");
         editVisible.value = false;
       }).catch(e => {
@@ -295,11 +294,11 @@ export default {
       })
     }
     const onSubmit = async () => {
-      // console.log(form.value)
+
       if (form.value.password) {
         if (form.value.new) {
           let login = await verifyUser();
-          // console.log(login)
+
           if (login) {
             if (form.value.password === form.value.new){
               ElMessage.error("新旧密码相同！")
@@ -329,9 +328,7 @@ export default {
         }
       }
       if (form.value.captchaEmail){
-        // console.log(form.value.captchaEmail)
-        // console.log(form.value.captchaEmailBackend)
-        // console.log(parseInt(form.value.captchaEmail) === parseInt(form.value.captchaEmailBackend))
+
         if (parseInt(form.value.captchaEmail) === parseInt(form.value.captchaEmailBackend)){
           if (form.value.new){
             form.value.password = form.value.new;
@@ -343,7 +340,7 @@ export default {
             return;
           }
 
-          // console.log(form.value.newEmail.match(regex))
+
 
           if (form.value.newEmail){
             if (form.value.newEmail.match(regex)){
@@ -481,9 +478,7 @@ export default {
     let form2 = ref({});
 
     const handleEdit = async () => {
-      // form2.value = form.value;
-      // console.log(form)
-      // console.log(form2)
+
       // form.value.userId = "";
       editVisible.value = true;
     };
@@ -498,9 +493,9 @@ export default {
       if (form.value.tel){
         ElMessage.success("已获取验证码！")
         const captcha =await getCaptchaByBackend(form.value.tel);
-        // console.log(captcha)
+
         form.value.captchaBackend = captcha;
-        // console.log(form.value.captchaBackend)
+
       }else if (form.value.tel.length != 11) {
         ElMessage.error("联系方式不合法,请核对联系方式！")
       }
@@ -518,9 +513,9 @@ export default {
       if (form.value.email){
         ElMessage.success("已获取验证码！")
         const captcha =await getCaptchaEmailByBackend(form.value.name,form.value.email);
-        // console.log(captcha)
+
         form.value.captchaEmailBackend = captcha;
-        // console.log(form.value.captchaEmailBackend)
+
       }
       // else if (form.value.tel.length != 11) {
       //   ElMessage.error("联系方式不合法,请核对联系方式！")

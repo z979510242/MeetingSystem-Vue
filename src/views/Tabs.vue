@@ -73,12 +73,12 @@ export default {
       const getMessages =  () => {
         return axios.get("/message/" ).then(res => {
           messages.value = res.data;
-          console.log(messages.value)
+
           messages.value.forEach(async message => {
             const user = await selectUser(message.userId);
-            console.log(user);
+
             message["name"] = user.name;
-            console.log(message)
+
           })
 
         }).catch(e => {
@@ -88,7 +88,7 @@ export default {
       };
       const selectUser = (userId) =>{
         return axios.get("/user/"+userId).then(res => {
-          console.log(res.data);
+
           if (res.data.length !== 0) {
             return res.data;
           }

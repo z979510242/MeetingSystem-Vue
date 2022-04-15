@@ -94,7 +94,7 @@ export default {
         });
         const insertUser = () => {
           return axios.post("/user/", form).then(res => {
-            console.log(res.data)
+
             ElMessage.success("注册成功！");
             onReset();
           }).catch(e => {
@@ -139,7 +139,7 @@ export default {
             const captcha = await getCaptchaByBackend(form.tel);
 
             form.captchaBackend = captcha;
-            console.log()
+
           }else if (form.value.tel.length != 11) {
             ElMessage.error("联系方式不合法,请核对联系方式！")
           }

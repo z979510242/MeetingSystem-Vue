@@ -32,13 +32,13 @@
 
             </div>
             <el-table :data="filterRooms" border class="table" ref="multipleTable" v-if="!isSearch" header-cell-class-name="table-header">
-                <el-table-column label="ID" width="70" align="center">
-                  <template #default="scope">
-<!--                    <el-radio v-model="selectRoom" :label="scope.row.id" size="large">-->
-                    {{scope.row.id}}
-<!--                  </el-radio>-->
-                  </template>
-                </el-table-column>
+<!--                <el-table-column label="ID" width="70" align="center">-->
+<!--                  <template #default="scope">-->
+<!--&lt;!&ndash;                    <el-radio v-model="selectRoom" :label="scope.row.id" size="large">&ndash;&gt;-->
+<!--                    {{scope.row.id}}-->
+<!--&lt;!&ndash;                  </el-radio>&ndash;&gt;-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
                 <el-table-column prop="room" label="房间号" align="center"></el-table-column>
                 <el-table-column prop="storey" label="建筑" align="center"></el-table-column>
                 <el-table-column prop="campus" label="校区" align="center"></el-table-column>
@@ -369,7 +369,7 @@ export default {
 
           roomMap.value[room.id].status = status;
           roomMap.value[room.id].statusDate = statusDate;
-          console.log(roomMap.value[room.id])
+
 
         })
       }
@@ -389,7 +389,7 @@ export default {
             // item[i] = !!roomMap2[i];
             if (roomMap2[i]){
               let user =await selectUser(roomMap2[i]);
-              // console.log(user.name)
+
               item[i] = user.name+"["+user.id+"]"
               // item[i] = roomMap2[i];
             }else {
@@ -409,29 +409,8 @@ export default {
 
           roomLogs.value.push(item);
         }
-        // console.log(roomLogs.value);
 
 
-        // for (let i = 8; i <=22; i+=2) {
-
-        //
-
-        //   let status = false;
-        //   let item = {...roomMap.value[selectRoom.value]};
-        //   // console.log(item)
-        //   if (roomMap2[i]){
-        //     status = true;
-        //     const user =await selectUser(roomMap2[i])
-        //     console.log(user)
-        //     item["name"] = user.name;
-        //     item["tel"] = user.tel;
-        //     item["userId"] = roomMap2[i];
-        //   }
-        //   item["log"] = i;
-        //   item["status"] = status;
-
-        //   roomLogs.value.push(item);
-        // }
         isSearch.value = true;
       };
 
@@ -452,10 +431,10 @@ export default {
 
 
       const handleEdit = async (col, row,userId) => {
-        console.log(col)
+
         form.value = reactive(row);
         form.value.log = col;
-        console.log(userId)
+
         if (userId !== -1){
           form.value.status = true;
 
@@ -463,8 +442,7 @@ export default {
 
           //TEST[1]  [ ]
           const regex =/\[([^)]+)\]/;
-          // console.log(regex.exec(userId))
-          // console.log(regex.exec(userId)[1]);
+
           let userId2 = regex.exec(userId)[1]
 
           let user = await selectUser(userId2);

@@ -61,7 +61,7 @@ export default {
             login.value.validate(async (valid) => {
                 if (valid) {
                   axios.post("/user/login", param).then(res => {
-                    console.log("success")
+
                     ElMessage.success("登录成功");
                     localStorage.setItem("token", res.data.token);
                     if(param.password === "123456"){
@@ -69,10 +69,10 @@ export default {
                     }else {
                       localStorage.setItem("default", false);
                     }
-                    console.log(localStorage.getItem("default"))
+
                     router.push("/");
                   }).catch(e => {
-                    console.log("error")
+
                     ElMessage.error("账号或密码错误")
                   })
                 } else {

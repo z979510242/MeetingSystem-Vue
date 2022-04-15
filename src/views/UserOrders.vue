@@ -205,9 +205,7 @@ export default {
 
 
       const cancelReserve = (log) => {
-        console.log(log.roomId);
-        console.log(new Date(log.date).getTime());
-        console.log(log.log);
+
         return axios.delete("/log/", {
           params: {
             roomId: log.roomId,
@@ -215,7 +213,7 @@ export default {
             log: log.log
           }
         }).then(async res => {
-          console.log(res.data)
+
           ElMessage.success("取消预约成功！");
           await getLogs();
           createTypes();

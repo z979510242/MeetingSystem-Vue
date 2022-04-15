@@ -312,7 +312,7 @@ export default {
           // form.value.statusDate = statusDate;
           roomMap.value[room.id].status = status;
           roomMap.value[room.id].statusDate = statusDate;
-          console.log(roomMap.value[room.id])
+
 
         })
       }
@@ -339,23 +339,23 @@ export default {
           }
           let status = false;
           let item = {...roomMap.value[selectRoom.value]};
-          // console.log(item)
+
           if (roomMap2[i]){
             status = true;
             const user =await selectUser(roomMap2[i])
-            console.log(user)
+
             item["name"] = user.name;
             item["tel"] = user.tel;
             item["userId"] = roomMap2[i];
-            console.log(item.name)
+
           }
-          console.log(item.name)
+
           item["log"] = i;
           item["status"] = status;
           item["statusDate"] = statusDate;
           roomLogs.value.push(item);
         }
-        console.log(roomLogs.value)
+
         isSearch.value = true;
       };
 

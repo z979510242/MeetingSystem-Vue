@@ -108,7 +108,7 @@ export default {
     const messages = ref([]);
 
     const getMessages =  () => {
-      console.log("getMessage")
+
       return axios.get("/message/" ).then(res => {
         messages.value = res.data;
       }).catch(e => {
@@ -149,8 +149,7 @@ export default {
         messageDateType.value[e.date] = []
         messageUserType.value[e.name] = []
         // messageDateType.value[new Date(e.date).toLocaleDateString()] = []
-        // console.log(e.date)
-        // console.log()
+
         messageMap.value[e.id] = ref(e);
       });
     }
@@ -201,7 +200,7 @@ export default {
     const updateMessage = () => {
       form.value.message = form.value.message2;
       form.value.date = new Date().getTime();
-      console.log("update")
+
       return axios.patch("/message/update/", form.value).then(async res => {
         ElMessage.success("更新通知信息成功！");
         messageMap.value[form.value.id].message = form.value.message;

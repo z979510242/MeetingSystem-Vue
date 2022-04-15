@@ -55,12 +55,12 @@ export default {
                 title: "教室预约",
               priority: 2
             },
-          {
-            icon: "el-icon-lx-comment",
-            index: "/rooms",
-            title: "教室使用情况",
-            priority: 2
-          },
+          // {
+          //   icon: "el-icon-lx-comment",
+          //   index: "/rooms",
+          //   title: "教室使用情况",
+          //   priority: 2
+          // },
           {
             icon: "el-icon-lx-comment",
             index: "/AllRooms",

@@ -129,14 +129,13 @@ export default {
     })
     const userResult = ref(users)
     const handleTypeChange = () => {
-      // console.log(query.type)
-      // console.log(users.value)
+
       userResult.value = users.value.filter(user => user.post === query.post)
     }
     onMounted(async ()=>{
       await getUsers();
       createTypes();
-      // console.log(users.value)
+
 
     })
     // clean filter
@@ -144,8 +143,7 @@ export default {
       query.value = {};
       query2.value={};
       isSearch.value = false;
-      // console.log(query.value)
-      // console.log(users.value);
+
     }
 
     // 分页导航
@@ -157,18 +155,17 @@ export default {
     // 删除操作
     const handleDelete = (index,row) => {
       // 二次确认删除
-      // console.log("here")
-      // console.log(row.id)
+
       ElMessageBox.confirm("确定要删除吗？", "提示", {
         type: "warning",
       }).then(() => {
-        // console.log("delete")
+
         return axios.delete("/user/" + row.id).then(async res =>{
           ElMessage.success("删除成功");
           filterUsers.value.splice(index, 1);
           await getUsers();
         }).catch(e =>{
-          // console.log(e)
+
           ElMessage.error(e)
         })
       }).catch(() => {});
@@ -225,7 +222,7 @@ export default {
 
     const clearPassword =()=>{
       //获取验证码
-      // console.log(form.value.password === "123456")
+
       if (form.value.password === "123456"){
         ElMessage.error("密码已为重置密码，无需重置！")
       }else if (!form.value.captcha){
@@ -246,11 +243,11 @@ export default {
 
     const getCaptcha = async () =>{
       //获取验证码
-      // console.log()
+
       if (form.value.tel){
         ElMessage.success("已获取验证码！")
         const captcha = await getCaptchaByBackend(form.value.tel);
-        // console.log(captcha)
+
         form.value.captchaBackend = captcha;
       }else if (form.value.tel.length != 11) {
         ElMessage.error("联系方式不合法,请核对联系方式！")

@@ -211,10 +211,10 @@ export default {
       return axios.get("/log/" + store.state.user.id).then( async res => {
         logs.value = res.data;
         for (let i = 0; i < logs.value.length; i++) {
-          // console.log(logs.value[i].roomId);
+
           const roomInfo = await getRoomById(logs.value[i].roomId);
           let temp  = roomInfo.room+"["+roomInfo.campus+roomInfo.storey+"]"
-          console.log(temp)
+
           logs.value[i].room = temp;
 
 
@@ -229,17 +229,17 @@ export default {
           id: id
         }
       }).then(res => {
-        // console.log(res.data)
+
         return res.data[0];
       }).catch(e => {
-        console.log(e.response.data)
+
       })
     }
     const dialogVisible = ref(false);
     const dialogRoom = ref({})
     const handleLogClick = async (id) => {
       dialogRoom.value = await getRoomById(id);
-      // console.log(dialogVisible.value)
+
       dialogVisible.value = true;
     }
 
@@ -302,14 +302,14 @@ export default {
     onMounted(async ()=>{
       await getRooms();
       createRoomType();
-      // console.log(roomType.value)
+
     })
     const times = ref({});
     const countTimes = (id) =>{
       return axios.get("/log/count/"+id).then(res => {
         return res.data;
       }).catch(e => {
-        console.log(e.response.data)
+        // console.log(e.response.data)
       })
     }
     onMounted(async ()=> {
@@ -320,7 +320,7 @@ export default {
       return axios.get("/message/count/").then(res => {
         return res.data;
       }).catch(e => {
-        console.log(e.response.data)
+        // console.log(e.response.data)
       })
     }
     onMounted(async ()=> {

@@ -124,7 +124,7 @@ export default {
     });
     const insertRoom = () => {
       return axios.post("/room/", form).then(res => {
-        console.log(res.data)
+
         ElMessage.success("添加成功！");
         onReset();
       }).catch(e => {

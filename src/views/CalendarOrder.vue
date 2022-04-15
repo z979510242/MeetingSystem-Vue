@@ -9,25 +9,45 @@
         </div>
         <div class="container">
             <div class="handle-box">
-              <el-calendar v-model="value" @click="handleEdit(value)" >
-              <template #dateCell="{ data }" >
-                <el-tag v-for="item in dateMap[data.day]" :key="item.id"
-                    type="info" class="mx-1" effect="dark">{{item.roomId}}: {{ item.log }}</el-tag>
-              </template>
+              <el-calendar v-model="value"  @click="handleEdit(value)" >
+                <template #dateCell="{ data }">
+                  <el-tag v-for="item in dateMap[data.day]" :key="item.id"
+                      type="info" class="mx-1" effect="dark">{{item.roomId}}: {{ item.log }}</el-tag>
+                </template>
               </el-calendar>
             </div>
         </div>
 
-
-        <el-dialog title="查看"  center v-model="editVisible" width="30%">
+        <el-dialog title="查看"  center v-model="editVisible" width="40%">
             <el-form :model="form" label-width="90px">
-
-                <el-form-item label="房间号：">{{form.room}}
-<!--                    <el-input v-model=""></el-input>-->
-                </el-form-item>
-                <el-button type="primary" @click="pushDateAndTime">预 约</el-button>
-
-
+              <el-form-item>
+<!--                {{ form.date }}-->
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,8)">查看{{ form.date }}  08:00-09:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,10)">查看{{ form.date }}  10:00-11:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,12)">查看{{ form.date }}  12:00-13:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,14)">查看{{ form.date }}  14:00-15:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,16)">查看{{ form.date }}  16:00-17:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,18)">查看{{ form.date }}  18:00-19:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,20)">查看{{ form.date }}  20:00-21:40的预约情况</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="pushDateAndTime(form.date,22)">查看{{ form.date }}  22:00-23:40的预约情况</el-button>
+              </el-form-item>
+<!--              <el-form-item label="房间号：">{{form.date}}</el-form-item>-->
             </el-form>
 
         </el-dialog>
@@ -62,21 +82,45 @@ export default {
       createMap();
     })
 
-    // let date;
-    // let time;
+      const format = (time, format)=> {
+        let t = new Date(time);
+        let tf = function (i) { return (i < 10 ? '0' : '') + i };
+        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+          switch (a) {
+            case 'yyyy':
+              return tf(t.getFullYear());
+              break;
+            case 'MM':
+              return tf(t.getMonth() + 1);
+              break;
+            case 'mm':
+              return tf(t.getMinutes());
+              break;
+            case 'dd':
+              return tf(t.getDate());
+              break;
+            case 'HH':
+              return tf(t.getHours());
+              break;
+            case 'ss':
+              return tf(t.getSeconds());
+              break;
+          }
+        })
+      }
+    const handleEdit = (date)=>{
+      date = format(date,'yyyy-MM-dd')
+      form.value.date = date;
 
-    const handleEdit = (data)=>{
-
-      form.value.room = data;
       editVisible.value = true;
 
     }
     function formatDate(date) {
-      let d = new Date(date),
-          month = '' + (d.getMonth() + 1),
-          day = '' + d.getDate(),
-          year = d.getFullYear();
 
+      let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
       if (month.length < 2)
         month = '0' + month;
       if (day.length < 2)
@@ -88,6 +132,7 @@ export default {
     const createMap = () => {
       for (let i = 0 ;i <data.value.length ; i++){
         const date = formatDate(data.value[i].date)
+
         if (!dateMap.value[date])
           dateMap.value[date] = []
         dateMap.value[date].push(data.value[i]);

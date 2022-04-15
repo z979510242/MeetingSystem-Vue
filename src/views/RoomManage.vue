@@ -137,23 +137,20 @@ export default {
       })
       const roomResult = ref(rooms)
       const handleTypeChange = () => {
-        console.log(query.type)
-        console.log(rooms.value)
+
         roomResult.value = rooms.value.filter(room => room.type === query.type)
       }
       onMounted(async ()=>{
         await getRooms();
         createTypes();
-        console.log(rooms.value)
-        // console.log(roomType.value)
+
       })
         // clean filter
       const cleanFilter = () => {
         query.value = {};
         query2.value={};
         isSearch.value = false;
-        console.log(query.value)
-        console.log(rooms.value);
+
       }
 
         // 分页导航
@@ -166,18 +163,17 @@ export default {
         // 删除操作
         const handleDelete = (index,row) => {
             // 二次确认删除
-          console.log("here")
-          console.log(row.id)
+
             ElMessageBox.confirm("确定要删除吗？", "提示", {
                 type: "warning",
             }).then(() => {
-              console.log("delete")
+
               return axios.delete("/room/" + row.id).then(async res =>{
                 ElMessage.success("删除成功");
                 filterRooms.value.splice(index, 1);
                 await getRooms();
               }).catch(e =>{
-                // console.log(e)
+
                 ElMessage.error(e)
               })
             }).catch(() => {});
@@ -200,7 +196,7 @@ export default {
             log: log
           }
         }).then(res => {
-          console.log(res.data);
+
           if (res.data.length === 0) {
             return true;
           }
@@ -229,8 +225,7 @@ export default {
           if (res.data.length !== 0) {
             judgeUser.value = res.data
           }
-          console.log("judgeUser")
-          console.log(judgeUser.value)
+
         }).catch(e => {
           ElMessage.error(e);
         });
