@@ -2,8 +2,7 @@ import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "../views/Home.vue";
 import axios from "axios";
 import store from '../store'
-import {useStore} from "vuex";
-import tr from "element-plus/packages/locale/lang/tr";
+
 
 const routes = [
     {
