@@ -516,12 +516,12 @@ export default {
         });
       };
       const classChecker = ( row, column )=> {
-        // const str = row.row[row.column.property]
-        // let cellBackground = {};
-        //   if ( row.column.property && str!== -1 ) {
-        //     cellBackground.background = "pink";
-        //     return cellBackground;
-        //   }
+        const str = row.row[row.column.property]
+        let cellBackground = {};
+          if ( row.column.property && str!== -1 ) {
+            cellBackground.background = "pink";
+            return cellBackground;
+          }
       };
         return {
             query,

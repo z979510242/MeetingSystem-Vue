@@ -239,28 +239,11 @@ export default {
         });
       }
 
-      const judgeUser = ref([]);
-      const orderUser = ref([]);
+
       const store = useStore();
 
 
 
-      //
-      // const judgeRoomsUser = (roomId, date, log) => {
-      //   return axios.get("/room/judge/", {
-      //     params: {
-      //       roomId: roomId,
-      //       date: date,
-      //       log: log
-      //     }
-      //   }).then(res => {
-      //     if (res.data.length !== 0) {
-      //       return res.data
-      //     }
-      //   }).catch(e => {
-      //     ElMessage.error(e);
-      //   });
-      // }
       const selectUser = (userId) =>{
         return axios.get("/user/"+userId).then(res => {
 
@@ -411,7 +394,6 @@ export default {
             log: log
           }
         }).then(res => {
-
           ElMessage.success("取消预约成功！");
           form.value.status = false;
           form.value.userId = null;

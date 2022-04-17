@@ -21,7 +21,7 @@
                 <el-option key="7" label="20:00-21:40" value="20"></el-option>
                 <el-option key="8" label="22:00-23:00" value="22"></el-option>
               </el-select>
-              <el-button type="primary" icon="el-icon-search" :disabled="!(query2.date && query2.time)" @click="handleSearch">搜索</el-button>
+              <el-button id="search" type="primary" icon="el-icon-search" :disabled="!(query2.date && query2.time)" @click="handleSearch">搜索</el-button>
               <br><br>
               <el-select v-model="query.type" placeholder="类型" class="handle-select mr10">
                     <el-option v-for="(item) in Object.keys(roomType)" :label="roomTypeChinese[item]" v-bind:value="item">{{roomTypeChinese[item]}}</el-option>
@@ -171,13 +171,17 @@ export default {
 
         roomResult.value = rooms.value.filter(room => room.type === query.type)
       }
-      onActivated(() => {
+      onActivated(() =>  {
         if (props.time){
           query2.value.time = props.time;
           query2.value.date = props.date;
           handleSearch();
+          setTimeout(() => {
+            document.getElementById("search").click();
+          }, 300);
+
         }
-      })
+      });
       onMounted(async ()=>{
         await getRooms();
         createTypes();
@@ -202,6 +206,7 @@ export default {
               .catch(() => {});
       };
       const judgeTime = (roomId, date, log) => {
+        console.log("judgeTime")
         return axios.get("/room/judge/", {
           params: {
             roomId: roomId,
@@ -256,6 +261,7 @@ export default {
             });
         };
       const filterRooms = computed(() => {
+        console.log("computed")
         return rooms.value.filter((room) => {
           for (const key in query.value) {
             if (room[key] !== query.value[key]) {
@@ -266,6 +272,7 @@ export default {
         })
       })
       const updateFilterStatus = (sec, today) => {
+
         filterRooms.value.forEach(async (room, index) => {
           const status = await judgeTime(room.id, sec.getTime(), query2.value.time);
 
@@ -280,11 +287,13 @@ export default {
         })
       }
       const handleSearch = () => {
+        console.log("handleSearch")
+        console.log(query2.value.date)
+        console.log(query2.value.time)
         const sec = new Date(query2.value.date);
         const time = query2.value.time;
         const today = new Date();
         sec.setHours(sec.getHours()+parseInt(time));
-
         updateFilterStatus(sec, today);
         isSearch.value = true;
       };
@@ -407,6 +416,11 @@ export default {
 .mr10 {
     margin-right: 10px;
 }
-
+.red {
+  color: red;
+}
+.gray {
+  color: #777777;
+}
 
 </style>
