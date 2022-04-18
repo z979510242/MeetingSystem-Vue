@@ -43,7 +43,9 @@
               <el-form-item label="容量" prop="capacity">
                 <el-input v-model="form.capacity" type="number" min="10" :value="10" step="10"></el-input>
               </el-form-item>
-
+              <el-form-item label="备注" prop="record">
+                <el-input v-model="form.record"  type="textarea"  :autosize="{ minRows: 4, maxRows: 10}"  placeholder="例如：是否含有WiFi、大屏幕等……"></el-input>
+              </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit">添加房间</el-button>
                 <el-button @click="onReset">重置表单</el-button>
@@ -102,9 +104,9 @@ export default {
       floor: [
         {required: true, message: "请输入楼层", trigger: "blur"},
       ],
-      // campus: [
-      //   {required: true, message: "请输入校区", trigger: "blur"},
-      // ],
+      record: [
+        {required: true, message: "请输入教室有关信息", trigger: "blur"},
+      ],
       type: [
         {required: true, message: "请选择类别", trigger: "blur"},
       ],
@@ -120,11 +122,11 @@ export default {
       floor: "",
       campus: "",
       type: "",
-      capacity: "10"
+      capacity: "10",
+      record :""
     });
     const insertRoom = () => {
       return axios.post("/room/", form).then(res => {
-
         ElMessage.success("添加成功！");
         onReset();
       }).catch(e => {

@@ -49,6 +49,7 @@
             <el-table-column label="类别" align="center">
               <template #default="scope">{{roomTypeChinese[scope.row.type]}} </template>
             </el-table-column>
+            <el-table-column prop="record" label="备注" align="center"></el-table-column>
             <el-table-column prop="capacity" label="容量" align="center"></el-table-column>
           </el-table>
 
@@ -59,6 +60,7 @@
               <el-table-column label="类别" align="center">
                 <template #default="scope">{{roomTypeChinese[scope.row.type]}} </template>
               </el-table-column>
+              <el-table-column prop="record" label="备注" align="center"></el-table-column>
               <el-table-column prop="capacity" label="容量" align="center"></el-table-column>
               <el-table-column label="时间" align="center" width="300"  >
                 <template #default="scope">
@@ -175,10 +177,10 @@ export default {
         if (props.time){
           query2.value.time = props.time;
           query2.value.date = props.date;
-          handleSearch();
+          // handleSearch();
           setTimeout(() => {
             document.getElementById("search").click();
-          }, 300);
+          }, 200);
 
         }
       });
@@ -206,7 +208,7 @@ export default {
               .catch(() => {});
       };
       const judgeTime = (roomId, date, log) => {
-        console.log("judgeTime")
+
         return axios.get("/room/judge/", {
           params: {
             roomId: roomId,
@@ -261,7 +263,7 @@ export default {
             });
         };
       const filterRooms = computed(() => {
-        console.log("computed")
+
         return rooms.value.filter((room) => {
           for (const key in query.value) {
             if (room[key] !== query.value[key]) {
@@ -287,9 +289,7 @@ export default {
         })
       }
       const handleSearch = () => {
-        console.log("handleSearch")
-        console.log(query2.value.date)
-        console.log(query2.value.time)
+
         const sec = new Date(query2.value.date);
         const time = query2.value.time;
         const today = new Date();

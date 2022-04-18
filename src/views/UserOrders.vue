@@ -53,6 +53,7 @@
                 <el-table-column label="类别" align="center">
                   <template #default="scope">{{roomTypeChinese[scope.row.type]}} </template>
                 </el-table-column>
+                <el-table-column prop="record" label="备注" align="center"></el-table-column>
                 <el-table-column prop="capacity" label="容量" align="center"></el-table-column>
 
 
@@ -126,6 +127,7 @@ export default {
           e.storey = roomArray[0].storey;
           e.floor = roomArray[0].floor;
           e.type = roomArray[0].type;
+          e.record = roomArray[0].record;
           roomType.value[e.type] = []
           campusType.value[e.campus] = []
           storeyType.value[e.storey] = []

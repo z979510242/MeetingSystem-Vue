@@ -45,6 +45,7 @@
                 <el-table-column label="类别" align="center">
                   <template #default="scope">{{roomTypeChinese[scope.row.type]}} </template>
                 </el-table-column>
+                <el-table-column prop="record" label="备注" align="center"></el-table-column>
                 <el-table-column prop="capacity" label="容量" align="center"></el-table-column>
             </el-table>
 

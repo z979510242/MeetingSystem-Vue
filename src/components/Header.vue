@@ -58,7 +58,7 @@ export default {
       }
       onMounted(async ()=> {
         messageTimes.value = await countMessageTimes();
-        console.log(messageTimes.value);
+
       })
         const store = useStore();
         const collapse = computed(() => store.state.collapse);

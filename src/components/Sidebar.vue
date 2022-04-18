@@ -49,18 +49,12 @@ export default {
                 title: "系统首页",
               priority: 2
             },
-            {
-                icon: "el-icon-lx-cascades",
-                index: "/table",
-                title: "教室预约",
-              priority: 2
-            },
-          // {
-          //   icon: "el-icon-lx-comment",
-          //   index: "/rooms",
-          //   title: "教室使用情况",
-          //   priority: 2
-          // },
+          {
+            icon: "el-icon-lx-calendar",
+            index: "/calendar",
+            title: "通过日历查询",
+            priority: 2
+          },
           {
             icon: "el-icon-lx-comment",
             index: "/AllRooms",
@@ -68,9 +62,9 @@ export default {
             priority: 2
           },
           {
-            icon: "el-icon-lx-calendar",
-            index: "/calendar",
-            title: "通过日历查询",
+              icon: "el-icon-lx-cascades",
+              index: "/table",
+              title: "教室预约",
             priority: 2
           },
           {
@@ -140,6 +134,12 @@ export default {
                     // },
 
                 ],
+            },
+            {
+              icon: "el-icon-setting",
+              index: "/system",
+              title: "会议室预约使用细节",
+              priority: 2
             },
         ];
 

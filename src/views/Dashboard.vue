@@ -20,24 +20,19 @@
 <!--              </router-link>-->
             </div>
           </template>
-          <router-link to="/AllRooms" custom v-slot="{ navigate }">
+          <router-link to="/calendar" custom v-slot="{ navigate }">
             <el-button @click="navigate" @keypress.enter="navigate" style="float: right; padding: 3px 0; position: relative; z-index: 999" type="text" >预约教室</el-button>
           </router-link>
             <el-tabs type="card">
 
               <el-tab-pane v-for="(item, index) in Object.keys(roomType)" :label="roomTypeChinese[item]">
-<!--                <router-link to="/table" custom v-slot="{ navigate }">-->
-<!--                  <el-button @click="navigate" @keypress.enter="navigate" style="float: right; padding: 3px 0" type="text" >预约教室</el-button>-->
-<!--                </router-link>-->
+
                 <el-table
                     :data="roomType[item]"
                     stripe
                     height="280"
                     style="width: 100%">
-<!--                  <el-table-column-->
-<!--                      prop="id"-->
-<!--                      label="RoomID">-->
-<!--                  </el-table-column>-->
+
                   <el-table-column
                       prop="room"
                       label="房间">
@@ -49,6 +44,10 @@
                   <el-table-column
                       prop="campus"
                       label="校区">
+                  </el-table-column>
+                  <el-table-column
+                      prop="record"
+                      label="备注">
                   </el-table-column>
                   <el-table-column
                       prop="capacity"
@@ -109,7 +108,7 @@
             <div class="clearfix">
               <span>预约情况</span>
 
-              <router-link to="/table" custom v-slot="{ navigate }">
+              <router-link to="/calendar" custom v-slot="{ navigate }">
                 <el-button @click="navigate" @keypress.enter="navigate" style="float: right; padding: 3px 0" type="text" >预约教室</el-button>
               </router-link>
             </div>
@@ -170,6 +169,9 @@
               </el-form-item>
               <el-form-item label="容量: " prop="pass">
                 {{dialogRoom.capacity}}
+              </el-form-item>
+              <el-form-item label="备注: " prop="pass">
+                {{dialogRoom.record}}
               </el-form-item>
             </el-form>
             <template #footer>

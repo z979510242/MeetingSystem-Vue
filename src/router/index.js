@@ -2,7 +2,7 @@ import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "../views/Home.vue";
 import axios from "axios";
 import store from '../store'
-
+import { ElMessage } from "element-plus";
 
 const routes = [
     {
@@ -130,6 +130,14 @@ const routes = [
                 },
                 props: true,
                 component: () => import (/* webpackChunkName: "user" */ '../views/User.vue')
+            }, {
+                path: '/system',
+                name: 'system',
+                meta: {
+                    title: '会议室使用细节'
+                },
+                props: true,
+                component: () => import (/* webpackChunkName: "user" */ '../views/System.vue')
             }
         ]
     }, {
@@ -168,9 +176,8 @@ router.beforeEach(async (to, from, next) => {
     if ((!token || !status) && to.path !== '/login') {
         console.log("token not valid")
         next('/login');
-    }
-    else {
-        console.log("else")
+    }else {
+        // console.log("else")
         next();
     }
 });

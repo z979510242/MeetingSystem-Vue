@@ -9,7 +9,7 @@
         </div>
         <div class="container">
             <div class="handle-box">
-              <el-calendar v-model="value"  @click="handleEdit(value)" >
+              <el-calendar v-model="value"  @click="handleEdit(value)"   >
                 <template #dateCell="{ data }" >
                   <div class="cell" v-if="dateMap[data.day]"><p  style="color: #fff">{{ data.day.split('-').slice(1).join('/') }}</p></div>
                   <div class="cell2" v-else><p  style="color: #409eff">{{ data.day.split('-').slice(1).join('/') }}</p></div>
@@ -23,10 +23,14 @@
         </div>
 
         <el-dialog title="查看预约情况"  center v-model="editVisible" width="30%">
-            <el-form :model="form" label-width="90px">
+            <el-form :model="form" label-width="20%" >
               <el-form-item v-for="item in form.data">
-                {{ item.room+"["+item.campus+item.storey+"]"+"    "+item.log+":00 -"+(parseInt(item.log)+1)+":40"}}
-                <el-button type="primary"  style="margin-left: 2em"  @click="cancelReserve(item.id,form.date,item.log)">取消预约</el-button>
+
+                    {{ item.room+"["+item.campus+item.storey+"]"+"    "+item.log+":00 -"+(parseInt(item.log)+1)+":40"}}
+
+
+                    <el-button type="primary"  style="margin-right: 2em; float: right"  @click="cancelReserve(item.id,form.date,item.log)">取消预约</el-button>
+
 
               </el-form-item>
               <el-form-item>
@@ -61,7 +65,7 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed ,onActivated } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 
 import axios from "axios";
@@ -97,37 +101,41 @@ export default {
           // console.log(e)
         })
       }
+      onActivated(async () =>  {
+        await getLogs();
+        createMap();
+      });
     onMounted(async ()=>{
       await getLogs();
       createMap();
     })
 
-      const format = (time, format)=> {
-        let t = new Date(time);
-        let tf = function (i) { return (i < 10 ? '0' : '') + i };
-        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-          switch (a) {
-            case 'yyyy':
-              return tf(t.getFullYear());
-              break;
-            case 'MM':
-              return tf(t.getMonth() + 1);
-              break;
-            case 'mm':
-              return tf(t.getMinutes());
-              break;
-            case 'dd':
-              return tf(t.getDate());
-              break;
-            case 'HH':
-              return tf(t.getHours());
-              break;
-            case 'ss':
-              return tf(t.getSeconds());
-              break;
-          }
-        })
-      }
+    const format = (time, format)=> {
+      let t = new Date(time);
+      let tf = function (i) { return (i < 10 ? '0' : '') + i };
+      return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+        switch (a) {
+          case 'yyyy':
+            return tf(t.getFullYear());
+            break;
+          case 'MM':
+            return tf(t.getMonth() + 1);
+            break;
+          case 'mm':
+            return tf(t.getMinutes());
+            break;
+          case 'dd':
+            return tf(t.getDate());
+            break;
+          case 'HH':
+            return tf(t.getHours());
+            break;
+          case 'ss':
+            return tf(t.getSeconds());
+            break;
+        }
+      })
+    }
     const getLogsByUserAndDate = (date) => {
         return axios.get("/log/UserIdAndDate/" ,{
           params:{
@@ -157,7 +165,6 @@ export default {
 
     }
     function formatDate(date) {
-
       let d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
@@ -170,10 +177,10 @@ export default {
       return [year, month, day].join('-');
     }
     const dateMap = ref({})
-    const createMap = async () => {
+    const createMap = () => {
       for (let i = 0 ;i <data.value.length ; i++){
         const date = formatDate(data.value[i].date)
-        if (!dateMap.value[date]){
+        if (date != null){
           dateMap.value[date] = true;
         }else {
           dateMap.value[date] = false;
@@ -206,9 +213,10 @@ export default {
             date: longDate,
             log: log
           }
-        }).then(res => {
+        }).then(async res =>{
           ElMessage.success("取消预约成功！");
-          handleEdit(date);
+          await getLogs();
+          await handleEdit(date);
           createMap();
           // form.value.status = false;
           // form.value.userId = null;
@@ -216,6 +224,7 @@ export default {
           ElMessage.error(e.response.data.message);
         });
       };
+
     return {
       editVisible,
       form,
@@ -224,7 +233,8 @@ export default {
       dateMap,
       pushDateAndTime,
       classChecker,
-      cancelReserve
+      cancelReserve,
+
     };
   },
 };

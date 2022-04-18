@@ -36,6 +36,7 @@
                 <el-table-column label="类别" align="center">
                   <template #default="scope">{{roomTypeChinese[scope.row.type]}} </template>
                 </el-table-column>
+                <el-table-column prop="record" label="备注" align="center"></el-table-column>
                 <el-table-column prop="capacity" label="容量" align="center"></el-table-column>
                 <el-table-column label="操作" width="300" align="center">
                   <template #default="scope" >
@@ -57,39 +58,28 @@
             <el-form :model="form" label-width="90px">
 
                 <el-form-item label="房间号：">{{form.room}}
-<!--                    <el-input v-model=""></el-input>-->
                 </el-form-item>
               <el-form-item label="建筑：">{{form.storey}}
-<!--                <el-input v-model="form.storey"></el-input>-->
               </el-form-item>
               <el-form-item label="校区：">{{form.campus}}
-<!--                <el-input v-model="form.campus"></el-input>-->
               </el-form-item>
               <el-form-item label="类型：">
-<!--                {{roomTypeChinese[form.type]}}-->
                 <el-select v-model="form.type" placeholder="请选择" style="width: 100%">
                   <el-option key="meeting" label="会议室" value="meeting"></el-option>
                   <el-option key="lab" label="实验室" value="lab"></el-option>
                 </el-select>
-<!--                <el-input v-model="form.type"></el-input>-->
               </el-form-item>
               <el-form-item label="容量：">
-<!--                {{form.capacity}}-->
                 <el-input v-model="form.capacity" type="number" min="10"  step="10"></el-input>
-<!--                <el-input v-model="form.capacity" ></el-input>-->
               </el-form-item>
-
-
+              <el-form-item label="备注：">
+                <el-input v-model = "form.record" type="textarea"  :autosize="{ minRows: 4, maxRows: 10}" ></el-input>
+              </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-<!--                  {{store.state.user.id}}-->
                   <el-button type="primary"   @click="updateRoom">更新信息</el-button>
-
-<!--                  <el-button type="primary" v-show="!form.status && form.userId === store.state.user.id" :disabled="!form.statusDate"  @click="cancelReserve">取消预约</el-button>-->
                   <el-button @click="editVisible = false">取 消</el-button>
-
-<!--                    <el-button type="primary" @click="saveEdit">确 定</el-button>-->
                 </span>
             </template>
         </el-dialog>
