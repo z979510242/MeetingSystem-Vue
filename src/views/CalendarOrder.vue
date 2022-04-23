@@ -25,13 +25,8 @@
         <el-dialog title="查看预约情况"  center v-model="editVisible" width="30%">
             <el-form :model="form" label-width="20%" >
               <el-form-item v-for="item in form.data">
-
                     {{ item.room+"["+item.campus+item.storey+"]"+"    "+item.log+":00 -"+(parseInt(item.log)+1)+":40"}}
-
-
                     <el-button type="primary"  style="margin-right: 2em; float: right"  @click="cancelReserve(item.id,form.date,item.log)">取消预约</el-button>
-
-
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="pushDateAndTime(form.date,8)">查看{{ form.date }}  08:00-09:40的预约情况</el-button>
@@ -198,7 +193,7 @@ export default {
     };
     const classChecker = (status)=> {
         // const str = row.row[row.column.property]
-      console.log(status)
+      // console.log(status)
         let cellBackground = {};
         if ( status == true ) {
           cellBackground.background = "pink";

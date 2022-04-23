@@ -32,13 +32,6 @@
 
             </div>
             <el-table :data="filterRooms" border class="table" ref="multipleTable" v-if="!isSearch" header-cell-class-name="table-header">
-<!--                <el-table-column label="ID" width="70" align="center">-->
-<!--                  <template #default="scope">-->
-<!--&lt;!&ndash;                    <el-radio v-model="selectRoom" :label="scope.row.id" size="large">&ndash;&gt;-->
-<!--                    {{scope.row.id}}-->
-<!--&lt;!&ndash;                  </el-radio>&ndash;&gt;-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
                 <el-table-column prop="room" label="房间号" align="center"></el-table-column>
                 <el-table-column prop="storey" label="建筑" align="center"></el-table-column>
                 <el-table-column prop="campus" label="校区" align="center"></el-table-column>
@@ -54,7 +47,16 @@
                     :cell-style="classChecker"
                     >
             <el-table-column label="房间" width="220" align="center">
-              <template #default="scope">{{scope.row.room}}[{{scope.row.campus}}{{scope.row.storey}}]</template>
+              <template #default="scope">
+                <el-tooltip
+                    class="box-item"
+                    effect="dark"
+                    :content="`会议室信息：${scope.row.record}`"
+                    placement="top"
+                >
+                  <el-button type="text" style="color: #1f2f3d; cursor: default">{{scope.row.room}}[{{scope.row.campus}}{{scope.row.storey}}]</el-button>
+                </el-tooltip>
+              </template>
             </el-table-column>
             <el-table-column prop="8" label="8:00-9:40" align="center">
               <template #default="scope" >
@@ -67,7 +69,6 @@
                 <el-button type="text" icon="el-icon-edit"  v-show="isSearch"  @click="handleEdit(scope.column.property, scope.row,scope.row[8])"
                            :class="{red : true}"
                            >被预约</el-button>
-<!--                  style="color:red"-->
                 </el-tooltip>
                 <el-button type="text" icon="el-icon-edit"  v-show="isSearch"  @click="handleEdit(scope.column.property, scope.row,scope.row[8])" v-else >未预约</el-button>
               </template>

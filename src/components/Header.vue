@@ -53,7 +53,7 @@ export default {
         return axios.get("/message/count/").then(res => {
           return res.data;
         }).catch(e => {
-          console.log(e.response.data)
+          console.log(e)
         })
       }
       onMounted(async ()=> {
