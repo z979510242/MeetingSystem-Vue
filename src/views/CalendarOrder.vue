@@ -202,22 +202,28 @@ export default {
       };
       const cancelReserve = (roomId,date,log) => {
         const longDate = new Date(date).getTime();
-        return axios.delete("/log/", {
-          params: {
-            roomId: roomId,
-            date: longDate,
-            log: log
-          }
-        }).then(async res =>{
-          ElMessage.success("取消预约成功！");
-          await getLogs();
-          await handleEdit(date);
-          createMap();
-          // form.value.status = false;
-          // form.value.userId = null;
-        }).catch(e => {
-          ElMessage.error(e.response.data.message);
-        });
+        const date1 = new Date().getTime()
+        if (longDate> date1){
+          return axios.delete("/log/", {
+            params: {
+              roomId: roomId,
+              date: longDate,
+              log: log
+            }
+          }).then(async res =>{
+            ElMessage.success("取消预约成功！");
+            await getLogs();
+            await handleEdit(date);
+            createMap();
+            // form.value.status = false;
+            // form.value.userId = null;
+          }).catch(e => {
+            ElMessage.error(e.response.data.message);
+          });
+        }else {
+          ElMessage.error("时间过期，无法取消预约！");
+        }
+
       };
 
     return {
