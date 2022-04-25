@@ -92,8 +92,6 @@ a {
     opacity: 0;
 }
 
-/*BaseForm*/
-
 .form-box {
     width: 600px;
 }
@@ -110,8 +108,6 @@ a {
 .el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
     padding-bottom: 0;
 }
-
-/*Upload*/
 
 .pure-button {
     width: 150px;
@@ -156,8 +152,6 @@ a {
     font-style: normal;
 }
 
-/*VueEditor*/
-
 .ql-container {
     min-height: 400px;
 }
@@ -169,8 +163,6 @@ a {
 .editor-btn {
     margin-top: 20px;
 }
-
-/*markdown*/
 
 .v-note-wrapper .v-note-panel {
     min-height: 500px;

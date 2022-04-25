@@ -10,7 +10,4 @@ axios.defaults.baseURL ="http://192.168.3.3:8888"
 axios.defaults.headers.common['Authorization'] = localStorage.getItem("token")
 installElementPlus(app)
 app.config.globalProperties.axios = axios
-app
-    .use(store)
-    .use(router)
-    .mount('#app')
+app.use(store).use(router).mount('#app')
